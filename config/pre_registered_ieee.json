@@ -1,0 +1,55 @@
+{
+  "protocol_version": "1.0",
+  "frozen_date": "2026-09-14",
+  "dataset": "IEEE-CIS public model-ready derivative / Vesta-origin data",
+  "primary_question": "Among already high-confidence financial decisions, does a current-stage maturity diagnostic predict later enriched-action reversal better than ordinary confidence and a supervised posterior-trajectory baseline?",
+  "split": {
+    "train": 0.6,
+    "validation": 0.2,
+    "test": 0.2,
+    "order": "chronological"
+  },
+  "high_confidence_threshold": 0.9,
+  "decision_costs": {
+    "false_positive": 1.0,
+    "false_negative": 5.0
+  },
+  "bayes_threshold": "fp/(fp+fn)",
+  "evidence_stages": [
+    "core",
+    "context",
+    "identity",
+    "history"
+  ],
+  "terminal_stage": "history",
+  "primary_subgroup": "high_confidence",
+  "primary_endpoints": [
+    "auroc",
+    "top10_precision"
+  ],
+  "secondary_endpoints": [
+    "auprc",
+    "brier",
+    "ece"
+  ],
+  "required_baselines": [
+    "confidence_uncertainty",
+    "trajectory_model"
+  ],
+  "bootstrap": {
+    "replicates": 1000,
+    "paired": true,
+    "cluster": "card1",
+    "fallback": "transaction only if fewer than 20 usable card clusters"
+  },
+  "success_rule": "For the same pre-terminal stage and same primary endpoint, the 95% paired bootstrap CI for maturity-minus-confidence and maturity-minus-trajectory must both have lower bound > 0.",
+  "failure_rule": "If the success rule is not met on the sealed test block, do not retune on test, do not add a new controller, and remove the claim of real-data superiority.",
+  "leakage_controls": [
+    "drop published full-dataset aggregate features",
+    "recompute history strictly point-in-time",
+    "terminal action is an outcome label, never a test-time maturity feature",
+    "fit stage fraud models on train only",
+    "fit maturity and trajectory reversal models on validation only",
+    "evaluate once on test"
+  ]
+}

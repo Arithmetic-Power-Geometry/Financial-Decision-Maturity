@@ -1,0 +1,14 @@
+{
+  "best_confidence": 0.85,
+  "training_grid": [
+    {"confidence": 0.7, "mean_cost": 0.4493000000000001},
+    {"confidence": 0.75, "mean_cost": 0.3824166666666667},
+    {"confidence": 0.8, "mean_cost": 0.2859333333333333},
+    {"confidence": 0.85, "mean_cost": 0.15671666666666667},
+    {"confidence": 0.9, "mean_cost": 0.18255833333333335},
+    {"confidence": 0.93, "mean_cost": 0.1900916666666667},
+    {"confidence": 0.95, "mean_cost": 0.21458333333333332},
+    {"confidence": 0.97, "mean_cost": 0.2357916666666667},
+    {"confidence": 0.99, "mean_cost": 0.26245833333333335}
+  ]
+}

@@ -37,6 +37,9 @@ jobs:
       - name: Run robustness and stress suite
         run: python experiments/run_stress_tests.py
 
+      - name: Run strong-baseline kill test
+        run: python experiments/run_strong_baselines.py
+
       - name: Verify outputs
         run: |
           test -s results/session_results.csv
@@ -45,6 +48,9 @@ jobs:
           test -s results/stress_session_results.csv
           test -s results/stress_summary.csv
           test -s results/stress_summary.json
+          test -s results/strong_baseline_summary.csv
+          test -s results/strong_baseline_paired.csv
+          test -s results/strong_baseline_tuning.json
           test -s figures/cost_by_policy.png
           test -s figures/decision_accuracy_by_policy.png
 

@@ -37,6 +37,10 @@ jobs:
       - name: Run robustness and stress suite
         run: python experiments/run_stress_tests.py
 
+      - name: Run decisive tuned strong-baseline comparison
+        if: matrix.python-version == '3.12'
+        run: python experiments/run_tuned_policy_comparison.py
+
       - name: Verify outputs
         run: |
           test -s results/session_results.csv
@@ -47,6 +51,15 @@ jobs:
           test -s results/stress_summary.json
           test -s figures/cost_by_policy.png
           test -s figures/decision_accuracy_by_policy.png
+
+      - name: Verify decisive comparison outputs
+        if: matrix.python-version == '3.12'
+        run: |
+          test -s results/policy_tuning_grid.csv
+          test -s results/policy_tuning_best.csv
+          test -s results/tuned_policy_test_summary.csv
+          test -s results/tuned_policy_bootstrap.csv
+          test -s results/tuned_policy_result.json
 
       - name: Upload reproducibility artifact
         if: matrix.python-version == '3.12'
